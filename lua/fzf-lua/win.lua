@@ -265,14 +265,16 @@ function FzfWin:preview_layout()
         width = width,
         height = height,
         col = col,
-        row = row
+        row = row,
+        noautocmd = true
     })
     local border_winopts = vim.tbl_extend('force', winopts, {
         anchor = anchor,
         width = width + 2,
         height = height + 2,
         col = anchor:match('W') and col - 1 or col + 1,
-        row = anchor:match('N') and row - 1 or row + 1
+        row = anchor:match('N') and row - 1 or row + 1,
+        noautocmd = true
     })
     return preview_opts, border_winopts
 end
@@ -388,7 +390,8 @@ function FzfWin:redraw()
       height = winopts.height or math.min(lines - 4, math.max(20, lines - 10)),
       style = 'minimal',
       relative = relative,
-      border = self.winopts.border
+      border = self.winopts.border,
+      noautocmd = true
     }
     win_opts.row = winopts.row or math.floor(((lines - win_opts.height) / 2) - 1)
     win_opts.col = winopts.col or math.floor((columns - win_opts.width) / 2)
